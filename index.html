@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | Creative Developer</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --surface: #111827;
+        --surface-alt: #1f2937;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #38bdf8;
+        --shadow: rgba(15, 23, 42, 0.45);
+        font-family: Inter, system-ui, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 32%),
+          linear-gradient(180deg, #0b1121 0%, #0f172a 100%);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      body ::selection {
+        background: rgba(56, 189, 248, 0.25);
+      }
+
+      .container {
+        width: min(1180px, calc(100% - 2rem));
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 1.5rem 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .brand span {
+        display: inline-flex;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        background: rgba(56, 189, 248, 0.12);
+        border: 1px solid rgba(56, 189, 248, 0.22);
+        font-weight: 700;
+      }
+
+      nav a {
+        color: var(--muted);
+        text-decoration: none;
+        margin-left: 1.5rem;
+        transition: color 0.2s ease;
+      }
+
+      nav a:hover,
+      nav a:focus-visible {
+        color: var(--text);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        align-items: center;
+        padding: 4rem 0 3rem;
+      }
+
+      .hero-text h1 {
+        font-size: clamp(2.6rem, 5vw, 4.5rem);
+        margin: 0;
+        letter-spacing: -0.05em;
+      }
+
+      .hero-text p {
+        max-width: 60ch;
+        margin: 1.25rem 0 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+
+      .buttons {
+        margin-top: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .button,
+      .button-secondary {
+        padding: 0.95rem 1.6rem;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .button {
+        background: linear-gradient(135deg, #38bdf8 0%, #7dd3fc 100%);
+        color: #0f172a;
+        box-shadow: 0 20px 50px rgba(56, 189, 248, 0.18);
+      }
+
+      .button-secondary {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid rgba(148, 163, 184, 0.35);
+      }
+
+      .button:hover,
+      .button-secondary:hover {
+        transform: translateY(-2px);
+      }
+
+      .hero-card {
+        padding: 2rem;
+        border-radius: 1.5rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(148, 163, 184, 0.12);
+        box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+      }
+
+      .hero-card h2,
+      .section-title {
+        margin: 0 0 1rem;
+        font-size: 1.15rem;
+      }
+
+      .hero-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      section {
+        padding: 3rem 0;
+      }
+
+      .section-title {
+        color: #fff;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        border-radius: 1.35rem;
+        padding: 1.75rem;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+      }
+
+      .card h3 {
+        margin-top: 0;
+        margin-bottom: 0.85rem;
+      }
+
+      .card p,
+      .skills li {
+        color: var(--muted);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .stat {
+        padding: 1.2rem;
+        border-radius: 1.25rem;
+        background: rgba(56, 189, 248, 0.08);
+        text-align: center;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.65rem;
+        color: #fff;
+      }
+
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        background: var(--surface-alt);
+        border-radius: 1.5rem;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 280px;
+      }
+
+      .project-card header {
+        padding: 1.5rem;
+      }
+
+      .project-card h4 {
+        margin: 0 0 0.75rem;
+      }
+
+      .project-card p {
+        margin: 0;
+      }
+
+      .project-card footer {
+        margin-top: auto;
+        padding: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .tag {
+        display: inline-flex;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        color: var(--accent);
+        background: rgba(56, 189, 248, 0.08);
+        font-size: 0.85rem;
+      }
+
+      .contact-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+
+      .contact-card div,
+      .contact-card form {
+        background: var(--surface);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        border: 1px solid rgba(148, 163, 184, 0.1);
+      }
+
+      .contact-card form {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .contact-card label {
+        display: grid;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      .contact-card input,
+      .contact-card textarea {
+        margin-top: 0.5rem;
+        padding: 0.95rem 1rem;
+        border-radius: 0.95rem;
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        background: rgba(15, 23, 42, 0.9);
+        color: #fff;
+      }
+
+      .contact-card textarea {
+        min-height: 160px;
+        resize: vertical;
+      }
+
+      footer {
+        padding: 2rem 0 3rem;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 900px) {
+        .grid-3,
+        .projects,
+        .stats,
+        .contact-card,
+        header {
+          grid-template-columns: 1fr;
+          display: block;
+        }
+
+        nav {
+          margin-top: 1rem;
+        }
+
+        nav a {
+          display: inline-block;
+          margin: 0 0.75rem 0.75rem 0;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .hero {
+          padding-top: 2rem;
+        }
+
+        .hero-card,
+        .card,
+        .project-card,
+        .contact-card div,
+        .contact-card form {
+          padding: 1.5rem;
+        }
+
+        .button,
+        .button-secondary {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <a href="#home" class="brand">
+          <span>CM</span>
+          <div>
+            <strong>Creative Maker</strong>
+            <div style="font-size: 0.85rem; color: var(--muted);">Portfolio</div>
+          </div>
+        </a>
+        <nav>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <section class="hero" id="home">
+        <div class="hero-text">
+          <p style="text-transform: uppercase; letter-spacing: 0.25em; color: var(--accent); margin-bottom: 1rem;">Designer &amp; Front-End Developer</p>
+          <h1>Building immersive digital experiences for startups and brands.</h1>
+          <p>
+            I craft polished interfaces, clean code, and thoughtful interactions that turn ideas into modern web experiences.
+            Currently focused on responsive design, SaaS landing pages, and product-led growth websites.
+          </p>
+          <div class="buttons">
+            <a class="button" href="#projects">See Work</a>
+            <a class="button-secondary" href="#contact">Let&apos;s Talk</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <h2>Experience at a glance</h2>
+          <p>
+            6+ years of building digital products across design systems, UI animation, accessible components, and user-centered web applications.
+          </p>
+          <div class="stats" style="margin-top: 1.75rem;">
+            <div class="stat">
+              <strong>18+</strong>
+              Projects launched
+            </div>
+            <div class="stat">
+              <strong>9</strong>
+              Industries served
+            </div>
+            <div class="stat">
+              <strong>4</strong>
+              Design systems built
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="section-title">About me</div>
+        <div class="grid-3" style="margin-top: 1.5rem;">
+          <div class="card">
+            <h3>Who I am</h3>
+            <p>
+              I am a multidisciplinary front-end developer with a passion for clean animation, production-ready markup, and intuitive user experiences.
+            </p>
+          </div>
+          <div class="card">
+            <h3>What I do</h3>
+            <p>
+              Design system architecture, responsive UI, component libraries, performance optimization, and collaboration with product teams.
+            </p>
+          </div>
+          <div class="card">
+            <h3>How I work</h3>
+            <p>
+              Agile collaboration, pixel-perfect implementation, and continuous iteration from concept to launch.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="section-title">Featured projects</div>
+        <div class="projects" style="margin-top: 1.5rem;">
+          <article class="project-card">
+            <header>
+              <span class="tag">SaaS</span>
+              <h4>LaunchPad</h4>
+              <p>A modern product page and onboarding flow for a cloud-based collaboration platform.</p>
+            </header>
+            <footer>
+              <small style="color: var(--muted);">React, Tailwind, Figma</small>
+            </footer>
+          </article>
+          <article class="project-card">
+            <header>
+              <span class="tag">Brand</span>
+              <h4>Pulse Studio</h4>
+              <p>A responsive landing experience for a creative agency with dynamic content blocks and motion-driven UI.</p>
+            </header>
+            <footer>
+              <small style="color: var(--muted);">HTML, CSS, JavaScript</small>
+            </footer>
+          </article>
+          <article class="project-card">
+            <header>
+              <span class="tag">Education</span>
+              <h4>SkillBoost</h4>
+              <p>An interactive learning dashboard designed for courses, progress tracking, and community engagement.</p>
+            </header>
+            <footer>
+              <small style="color: var(--muted);">Vue, SCSS, Accessibility</small>
+            </footer>
+          </article>
+          <article class="project-card">
+            <header>
+              <span class="tag">Product</span>
+              <h4>Vibe Merch</h4>
+              <p>An e-commerce storefront optimized for product discovery, fast checkout, and mobile-first browsing.</p>
+            </header>
+            <footer>
+              <small style="color: var(--muted);">Next.js, Shopify, Animation</small>
+            </footer>
+          </article>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="section-title">Skills & tools</div>
+        <div class="grid-3" style="margin-top: 1.5rem;">
+          <div class="card">
+            <h3>Core skills</h3>
+            <ul class="skills" style="padding-left: 1.15rem; margin: 0; list-style: disc outside;">
+              <li>Responsive Web Design</li>
+              <li>UI / UX Prototyping</li>
+              <li>Component Architecture</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Tech stack</h3>
+            <ul class="skills" style="padding-left: 1.15rem; margin: 0; list-style: disc outside;">
+              <li>HTML/CSS/JavaScript</li>
+              <li>React / Vue</li>
+              <li>Figma / Design Systems</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Development</h3>
+            <ul class="skills" style="padding-left: 1.15rem; margin: 0; list-style: disc outside;">
+              <li>Performance Optimization</li>
+              <li>Accessibility Standards</li>
+              <li>Version Control / Git</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="section-title">Let&apos;s collaborate</div>
+        <div class="contact-card" style="margin-top: 1.5rem;">
+          <div>
+            <h3>Get in touch</h3>
+            <p style="margin-bottom: 1.5rem; color: var(--muted);">
+              Available for freelance work, contract engagements, and full-time opportunities. Send a note and I&apos;ll respond within one business day.
+            </p>
+            <p><strong>Email</strong><br />hello@example.com</p>
+            <p><strong>Location</strong><br />Remote / Global</p>
+          </div>
+          <form>
+            <label>
+              Name
+              <input type="text" placeholder="Your name" />
+            </label>
+            <label>
+              Email
+              <input type="email" placeholder="you@example.com" />
+            </label>
+            <label>
+              Message
+              <textarea placeholder="Tell me about your project"></textarea>
+            </label>
+            <button type="submit" class="button" style="width: 100%;">Send message</button>
+          </form>
+        </div>
+      </section>
+
+      <footer>
+        Crafted with care for modern digital brands. © 2026.
+      </footer>
+    </div>
+  </body>
+</html>
